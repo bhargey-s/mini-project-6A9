@@ -2,7 +2,7 @@ const projects = [
 
     {
         name: "Bhargey Shingala",
-        usn: "1DS19CS038",
+        usn: "1DS19CS038", 
         subName: "Computer Networks",
         subCode: "1DS19CS5DSCNL",
         projectTitle: "Home Security System",
@@ -33,9 +33,9 @@ const projects = [
     {
         name: "Anvay Parhelkar",
         usn: "1DS19CS029",
-        subName: "Computer Networks",
-        subCode: "1DS19CS5DSCNL",
-        projectTitle: "Home Security System",
+        subName: "Database Management System",
+        subCode: "1DS19CS3DSDBL",
+        projectTitle: "Library Management System",
         marks: NaN,
         projLink: "",
         reportLink: ""
@@ -61,3 +61,5 @@ const projects = [
         reportLink: ""
     },
 ]
+
+export default projects ;

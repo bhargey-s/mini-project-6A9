@@ -6,7 +6,7 @@ import Header from './Header'
 function Upload() {
     return (
         <div>
-        <Header links={[{name:"HOME",href:""},{name:"LOGIN",href:""}]}></Header>
+        <Header links={[{name:"HOME",href:"/"},{name:"LOGIN",href:"/facultylogin"}]}></Header>
         <div>
         <Heading intro={["Welcome to DSCE Project Portal", "Upload your Project"]}></Heading>
         <Form></Form>

@@ -6,7 +6,7 @@ import FacultyLogin from './FacultyLogin'
 function FacultyLoginPage() {
     return (
         <div>
-        <Header links={[{name:"HOME",href:""},{name:"UPLOAD",href:""}]}></Header>
+        <Header links={[{name:"HOME",href:""},{name:"UPLOAD",href:"/"}]}></Header>
         <div>
         <Heading intro={["Faculty Login", ""]}></Heading>
         <FacultyLogin></FacultyLogin>

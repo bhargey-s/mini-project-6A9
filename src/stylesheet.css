@@ -9,7 +9,7 @@
     font-family: 'Open Sans' ;
 }
 .App {
-    width : 100vw ;
+    /* width : 100vw ; */
 }
 .header {
     width: 100% ;
@@ -102,7 +102,7 @@ a:link {
     /* border: springgreen 1px solid; */
     /* margin-right: 1vw; */
 }
-.form1 input, .form2 input {
+.form1 input, .form2 input, .form1 select {
     display: inline-block;
     font-family: 'Poppins';
     font-size: 16px;
@@ -167,7 +167,7 @@ footer {
     height: 71.5vh;
     padding: 15vh 0;
 }
-.search h2 {
+.search h2, .searchResult h2 {
     font-family: 'Poppins';
     font-size: 40px ;
     font-weight: 300;
@@ -179,6 +179,15 @@ footer {
     padding: 1vh 1vw;
     font-family: 'Open Sans';
     font-size: 16px;
+}
+.searchBtn {
+    margin-left: 2vw;
+    padding: 1vh 1.5vw;
+    border-radius: 5px;
+    border: none;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
 }
 .radioBtns {
     width: 35vw;
@@ -200,25 +209,84 @@ footer {
     justify-content: space-around;
 }
 .login {
-    width: 40%;
+    width: 50%;
     height: 75%;
     padding: 2vh 3vw ;
-    font-size: 22px;
+    font-size: 18px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-content: center ;
     border-right: 1px solid black;
+    /* border: 1px solid black; */
+}
+.login section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.login input {
+    display: inline-block;
+    font-size: 16px;
+    width: 75%;
+    height: 30px;
+    padding: 0 1vw;
 }
 .loginNote {
     width: 40%;
+    height: 75%;
     padding: 2vh 2vw ;
     font-size: 16px;
+    display: flex;
 }
 
 .App {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.table {
+    width: 90% ;
+    margin: 0 auto;
+    margin-top: 5vh;
+}
+
+.tableHead {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    background-color: #EAEAEA;
+    border-radius: 10px;
+    padding: 1vh 2vw;
+    font-weight: 600;
+    margin-bottom: 3vh;
+}
+.row {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 1vh;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1vh 2vw;
+    font-weight: 600;
+    text-align: center;
+    box-shadow:  12px 12px 20px #d1d1d1,
+             -12px -12px 20px #ffffff;
+}
+.row p {
+    width: 15% ;
+    font-size: 16px;
+}
+.linkBtns {
+    width: 7vw;
+    background-color: #000;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+.linkBtns a {
+    color: #fff;
 }
 

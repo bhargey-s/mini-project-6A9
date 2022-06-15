@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react'
 
 function Form1() {
-    const [details, setDetails] = useState({ noMembers: 1, members: { name: "", usn: "" }, subject: "", subCode: "", title: "" });
+    const [details, setDetails] = useState({ noMembers: 1, members: [{ name: "", usn: "" }], subject: "", subCode: "", title: "", assignedFaculty: "" });
     const [noMembers, setNoMembers] = useState(1);
-    const [members, setMembers] = useState({ name: "", usn: "" });
+    const [members, setMembers] = useState([{ name: "", usn: "" }]);
     const [subject, setSubject] = useState("");
     const [subCode, setSubCode] = useState("");
     const [title, setTitle] = useState("");
-
+    const [assignedFaculty, setAssignedFaculty] = useState("");
+    const [semster,setSemester] = useState(1) ;
+    const validUSN = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
+);
     const handleSubmit = () => {
-        setDetails({ noMembers: noMembers, members: members, subject: subject, subCode: subCode, title: title })
+        setDetails({ noMembers: noMembers, members: members, subject: subject, subCode: subCode, title: title, assignedFaculty: assignedFaculty }) ;
     }
 
     const memberInput = () => {
@@ -52,13 +55,42 @@ function Form1() {
                     <input type="text" className="usn" placeHolder="eg.1DS19CS001" value={members.usn} required onChange={e => { setMembers(e.target.value) }}></input>
                 </section>
             </div>
-            <div>
-                <label>Subject Name :</label>
-                <input type="text" className="subjectname" placeHolder="eg.Computer Networks" value={subject} required onChange={e => { setSubject(e.target.value) }} />
+            <div className="noMembers semester">
+                <label>Semester :</label>
+                <select onChange={e => { setSemester(e.target.value) }}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
             </div>
             <div>
-                <label>Subject Code :</label>
-                <input type="text" placeHolder={"eg.1DS19CS5DSCNL"} value={subCode} required onChange={e => { setSubCode(e.target.value) }} />
+                <label>Subject Name :</label>
+                <select type="text" className="subjectname" placeHolder="eg.Computer Networks" value={subject} required onChange={e => { setSubject(e.target.value) }}>
+                    <option value="" selected disabled>Select</option>
+                    <option value="CN">Computer Networks</option>
+                    <option value="DBMS">Database Management System</option>
+                    <option value="3">Object Oriented Programming with Java</option>
+                    <option value="SS">System Software</option>
+                </select>
+                {/* <input type="text" className="subjectname" placeHolder="eg.Computer Networks" value={subject} required onChange={e => { setSubject(e.target.value) }} /> */}
+            </div>
+            <div>
+                {/* <label>Subject Code :</label>
+                <input type="text" placeHolder={"eg.1DS19CS5DSCNL"} value={subCode} required onChange={e => { setSubCode(e.target.value) }} />*/}
+                <label>Assigned Faculty :</label>
+                <select type="text" className="subjectname" placeHolder="eg.Computer Networks" value={subject} required onChange={e => { setAssignedFaculty(e.target.value) }}>
+                    <option value="" selected disabled>Select</option>
+                    <option value="AG">Prof. Anupama G</option>
+                    <option value="VM">Dr.Vindhya M</option>
+                    <option value="DG">Dr.Deepak G</option>
+                    <option value="RRS">Dr.Ramya R S</option>
+                    <option value="AM">Prof. Almas M</option>
+                </select>
             </div>
             <div>
                 <label>Project Title :</label>

@@ -1,5 +1,8 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 const submitStyle = {
+    width:"10vw",
+    margin:"0 auto",
     padding: "1vh 1vw",
     background: "#0686e9",
     borderRadius: "25px",
@@ -15,13 +18,13 @@ function FacultyLogin() {
             <div className="login">
                 <section>
                     <label htmlFor="username">Username : </label>
-                    <input type="text" name="username" />
+                    <input type="text" name="username" placeholder="Mobile No./Email" required/>
                 </section>
                 <section>
                     <label htmlFor="password">Password : </label>
-                    <input type="password" name="password" />
+                    <input type="password" name="password" placeholder="Password" required/>
                 </section>
-                <button type="submit" className="" style={submitStyle}>Submit</button>
+                <Link type="submit" className="" style={submitStyle} to='/search'>Login</Link>
             </div>
             <div className="loginNote">
                 <ul>
