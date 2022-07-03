@@ -6,6 +6,7 @@ const projects = [
         subName: "Computer Networks",
         subCode: "1DS19CS5DSCNL",
         projectTitle: "Home Security System",
+        assignedfaculty:"admin",
         marks: NaN,
         projLink: "",
         reportLink: ""

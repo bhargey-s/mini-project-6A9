@@ -6,15 +6,36 @@ import SearchResult from './SearchResult';
 function Search() {
     const [searchBy, setSearchBy] = useState(["usn", "eg.1DS19CS001"]);
     const [displayResult, setDisplayResult] = useState(false);
-    const [searchVal,setSearchVal] = useState("hello") ;
-
+    const [searchVal,setSearchVal] = useState("") ;
+    const regex = /1DS\d\dCS\d\d\d/i;
     const handleChange = (e) => {
+        setSearchVal("") ;
         if (e.target.value === "usn")
             setSearchBy(["usn", "eg.1DS19CS001"]);
         else if (e.target.value === "projectTitle")
             setSearchBy(["projectTitle", "eg.Courier Management System"]);
         if (e.target.value === "subName")
             setSearchBy(["subName", "eg.Computer Networks"]);
+    }
+    const handleSubmit = () => {
+        let searchValue = document.querySelector(".searchBar").value ;
+        if(!searchValue){
+            if(searchBy[0]=="usn")
+                alert(`Enter the USN`);
+            else if(searchBy[0]=="projectTitle")
+                alert(`Enter the Project Title`);
+            if(searchBy[0]=="subName")
+                alert(`Enter the Subject Name`);
+            return ;
+        }
+        if(searchBy[0]=="usn"){
+            if(!regex.test(searchValue)) {
+                alert("Enter a Valid USN!") ;
+                return ;
+            }
+        }
+        setDisplayResult(true) ;
+        setSearchVal(searchValue) ;
     }
   
 
@@ -25,8 +46,8 @@ function Search() {
                 <h2>Project Archive</h2>
                 <div>
                     <section>
-                        <input type="text" placeholder={searchBy[1]} className="searchBar" onChange={(e) => {setSearchVal(e.target.value)}} />
-                        <button className="searchBtn" onClick={() => setDisplayResult(true)}>Search </button>
+                        <input type="text" placeholder={searchBy[1]} className="searchBar" />
+                        <button className="searchBtn" onClick={handleSubmit}>Search </button>
                     </section>
                     <section className="radioBtns">
                         <p>Search by :</p>
@@ -39,7 +60,7 @@ function Search() {
                     </section>
                 </div>
             </div>
-            {(displayResult)?<SearchResult searchVal={searchVal} searchBy={searchBy}></SearchResult>: ""}
+            {displayResult && <SearchResult searchVal={searchVal} searchBy={searchBy}></SearchResult>}
         </div>
     )
 }

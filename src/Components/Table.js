@@ -5,7 +5,7 @@ import Row from './Row'
 function Table(props) {
     const searchVal = props.searchVal;
     let displayProjects = Projects.filter((project) => {
-        return project.subName == searchVal || project.usn == searchVal || project.projectTitle == searchVal;
+        return project.subName.toLowerCase() == searchVal.toLowerCase() || project.usn.toLowerCase() == searchVal.toLowerCase() || project.projectTitle.toLowerCase() == searchVal.toLowerCase();
     })
     return (
         <div className="table">
@@ -17,9 +17,10 @@ function Table(props) {
                 <p>Links</p>
                 <p>Marks</p>
             </div>
-            {displayProjects.map((project) => {
+            {displayProjects.length != 0 ? displayProjects.map((project) => {
+                console.log(project);
                 return <Row project={project}></Row>
-            })}
+            }) : <p>No projects found</p>}
         </div>
     )
 }

@@ -11,7 +11,8 @@ function Form1() {
     const [semster,setSemester] = useState(1) ;
     const validUSN = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
 );
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         setDetails({ noMembers: noMembers, members: members, subject: subject, subCode: subCode, title: title, assignedFaculty: assignedFaculty }) ;
     }
 
