@@ -4,47 +4,69 @@ import MemberRow from './MemberRow';
 
 function Form() {
     const initialState = { noMembers: 1, membersDetails: members, semester: 1, subject: "", subCode: "", title: "", assignedFaculty: "", projLink: "", report: "" };
+    // Details is the main state which will store all the inputs of the form
     const [details, setDetails] = useState(initialState);
-    const [formErrors, setFormErrors] = useState({ name: [], usn: [] });
-    const [isSubmit, setIsSubmit] = useState(false);
-    const [teamId, setTeamId] = useState(null);
-    const [modalShow, setModalShow] = useState(false);
+
+    // Member state to properly store the members and after saving updating it in the details state
     const [members, setMembers] = useState([{ name: "", usn: "" }]);
 
+    // State to hold the errors in the Name and USN
+    const [formErrors, setFormErrors] = useState({ name: [], usn: [] });
+
+    // State which holds the Team Id and set only if the form is validated
+    const [teamId, setTeamId] = useState(null);
+
+    // To show the Project added successfully popup
+    const [modalShow, setModalShow] = useState(false);
+
+    // Store the members details before updating the state
     let memberArr = [];
 
+    // Function called on Clicking the Save Members button 
     const handleMembers = (e) => {
+        // preventDefault() To prevent the page to refresh
         e.preventDefault();
+
+        // Collecting all the Name input values for further validation
         var names = Array.from(document.querySelectorAll(".name")).map((input) => {
             return input.value;
         });
 
+        // Collecting all the USN input values for further validation
         var usns = Array.from(document.querySelectorAll(".usn")).map((input) => {
             return input.value;
         });
 
+        // Validating only the Names and USN before saving them
+        // And setting the Errors if any
         setFormErrors(validate(names, usns));
 
+        // Checking if there are any errors or not
+        // If there are errors then don't save the members
         if (formErrors.name.length != 0 || formErrors.usn.length != 0) {
             return 0;
         }
-        else {
+        // Else save the Members and also update the members in the details state
+        else if (formErrors.name.length == 0 || formErrors.usn.length == 0){
             for (let i = 0; i < details.noMembers; i++) {
                 memberArr[i] = { name: names[i], usn: usns[i] };
             }
-            console.log(memberArr);
             setMembers(memberArr);
             setDetails({ ...details, membersDetails: members });
         }
     }
 
+    // Validation function only for Names and USN
+    // Other inputs will be validated automatically using the required attribute
     const validate = (names, usns) => {
         const errors = { name: [], usn: [] };
         const regex = /1[dD][sS]\d\d[cC][sS]\d\d\d/i;
+        // Checking for any errors in any of the Name input
         names.forEach((element, index) => {
             if (element.length == 0)
                 errors.name[index] = "Name is required";
         });
+        // Checking for any errors in any of the USN input
         usns.forEach((element, index) => {
             if (element == "")
                 errors.usn[index] = "USN is required";
@@ -54,49 +76,59 @@ function Form() {
         return errors;
     }
 
+    // Called when value of any of the inputs is changed
     const handleChange = (e) => {
         const { name, value } = e.target;
+        // On changing the no. of Members, the no. of MemberInputs will change
         if (name == "noMembers") {
             for (let i = 0; i < value; i++) {
                 memberArr.push({ name: "", usn: "" });
             }
             setMembers(memberArr);
         }
+        // Updating the details state when input changes
         setDetails({ ...details, [name]: value });
     }
 
+    // Called when clicked on button Team ID
+    // Works as a Submit button of the form
+    // Will only execute if all the inputs are filled
+    const handleTeamId = (e) => {
+        // preventDefault() To prevent the page to refresh
+        e.preventDefault();
+        if (formErrors.name.length == 0 || formErrors.usn.length == 0) {
+            // Fetch the team Id with axios
+            //  And then set teamId using setTeamId method
+            setTeamId("Team ID : 19CNL0005")
+        }
+    }
+
+    // Only displayed when the TeamID is fetched and the teamId state is set some value
     const handleSubmit = (e) => {
         e.preventDefault();
+        // Axios POST request
+        // Post the details state into the database
         setDetails(initialState);
         setTeamId(null);
-        // setIsSubmit(false);
+        setMembers([{ name: "", usn: "" }]);
         showModal();
     }
 
+    // To show the popup
     const showModal = () => {
         setModalShow(true);
     };
-
+    // To hide the popup
     const hideModal = () => {
         setModalShow(false);
         return true;
+        window.location.reload() ;
     };
-
-
-    const handleTeamId = (e) => {
-        e.preventDefault();
-        // setIsSubmit(true);
-        if (formErrors.name.length == 0 || formErrors.usn.length == 0) {
-            // Fetch the team Id with axios and then set
-            setTeamId("Team ID : 19CNL0005")
-
-        }
-        // setDetails({ noMembers: noMembers, members: members, subject: subject, subCode: subCode, title: title, assignedFaculty: assignedFaculty });
-    }
 
     return (
         <React.Fragment>
             <form className="form" onSubmit={handleTeamId}>
+
                 <div className="noMembers">
                     <label>No. of Members :</label>
                     <select name="noMembers" onChange={handleChange}>
@@ -154,7 +186,6 @@ function Form() {
                         <option value="SS">System Software</option>
                     </select>
                     {/* <input type="text" className="subjectname" placeHolder="eg.Computer Networks" value={subject} required onChange={e => { setSubject(e.target.value) }} /> */}
-                    <p className="error">{formErrors.subject}</p>
                 </div>
 
                 <div>
@@ -176,7 +207,6 @@ function Form() {
                         <option value="RRS">Dr.Ramya R S</option>
                         <option value="AM">Prof. Almas M</option>
                     </select>
-                    <p className="error">{formErrors.assignedFaculty}</p>
                 </div>
 
                 <div>
@@ -188,7 +218,6 @@ function Form() {
                         value={details.title}
                         required
                         onChange={handleChange} />
-                    <p className="error">{formErrors.title}</p>
                 </div>
 
                 <div>
@@ -225,7 +254,6 @@ function Form() {
                 <button
                     className="generateId"
                     disabled={teamId}
-                    // onClick={handleTeamId}
                     type="submit">
                     Generate Team Id
                 </button>

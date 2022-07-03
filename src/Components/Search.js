@@ -4,10 +4,16 @@ import SearchResult from './SearchResult';
 
 
 function Search() {
+    // State which holds the value of the selected radio button
     const [searchBy, setSearchBy] = useState(["usn", "eg.1DS19CS001"]);
+    // State which tells whether to display the Result projects or not
     const [displayResult, setDisplayResult] = useState(false);
+    // Value typed in the Search Bar by the user
     const [searchVal,setSearchVal] = useState("") ;
+
     const regex = /1DS\d\dCS\d\d\d/i;
+
+    // Called when the value of Radio button changes
     const handleChange = (e) => {
         setSearchVal("") ;
         if (e.target.value === "usn")
@@ -17,8 +23,11 @@ function Search() {
         if (e.target.value === "subName")
             setSearchBy(["subName", "eg.Computer Networks"]);
     }
+    // Called when clicked on the Search button
     const handleSubmit = () => {
         let searchValue = document.querySelector(".searchBar").value ;
+
+        // Validating the Search Bar value using alerts
         if(!searchValue){
             if(searchBy[0]=="usn")
                 alert(`Enter the USN`);
@@ -28,12 +37,14 @@ function Search() {
                 alert(`Enter the Subject Name`);
             return ;
         }
+        // Validating the USN
         if(searchBy[0]=="usn"){
             if(!regex.test(searchValue)) {
                 alert("Enter a Valid USN!") ;
                 return ;
             }
         }
+        // If the value is validated
         setDisplayResult(true) ;
         setSearchVal(searchValue) ;
     }
@@ -42,6 +53,7 @@ function Search() {
     return (
         <div>
             <Header links={[{ name: "", href: "" }, { name: "LOGOUT", href: "/facultylogin" }]}></Header>
+
             <div className="search">
                 <h2>Project Archive</h2>
                 <div>
@@ -60,6 +72,7 @@ function Search() {
                     </section>
                 </div>
             </div>
+            
             {displayResult && <SearchResult searchVal={searchVal} searchBy={searchBy}></SearchResult>}
         </div>
     )

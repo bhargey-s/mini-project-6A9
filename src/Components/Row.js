@@ -3,19 +3,25 @@ import React from 'react'
 function Row(props) {
     const project = props.project;
 
+    // Called when clicked on Edit button (To change the marks)
     const handleMarks = (e) => {
-        console.log(project.assignedfaculty) ;
-        // if(project.assignedFaculty!="admin"){
-        //     alert("You are not the Assigned Faculty");
-        //     return ;
-        // }
+        // Code to let only the Assignedfaculty to update the marks
+        /* if(project.assignedFaculty!="admin"){
+            alert("You are not the Assigned Faculty");
+            return ;
+        } */
+
+        // Making the p tag with marks as textarea 
         let marksPara = e.target.previousSibling;
-        // let marks = marksPara.innerText ;
         marksPara.innerHTML = `<textarea cols="5">${marksPara.innerText}</textarea>`;
+        // Making the Textarea back to p tag
         let textarea = document.querySelector("textarea");
         textarea.addEventListener("blur", function () {
             marksPara.innerHTML = textarea.value;
         });
+        
+        // Update the marks in the database
+        // PUT request to the Database using Axios
     }
     return (
         <div className="row">
@@ -24,10 +30,10 @@ function Row(props) {
             <p>{project.subName}</p>
             <p>{project.projectTitle}</p>
             <p>
-                <button className="linkBtns" style={{backgroundColor:"#0189CB"}}>
+                <button className="linkBtns" style={{ backgroundColor: "#0189CB" }}>
                     <a href={project.projLink}>Source Code</a>
                 </button>
-                <button className="linkBtns" style={{backgroundColor:"#E75059"}}>
+                <button className="linkBtns" style={{ backgroundColor: "#E75059" }}>
                     <a href={project.report}>Project Report</a>
                 </button>
             </p>
